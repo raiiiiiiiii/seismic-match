@@ -787,7 +787,7 @@
             <div class="stat-item"><span class="stat-icon">⏱</span> <span id="timer">0</span>s</div>
             <div class="stat-item"><span class="stat-icon">🎯</span> <span id="pairs-found">0</span>/<span id="total-pairs">6</span></div>
             <div class="stat-item"><span class="stat-icon">🔄</span> <span id="moves-counter">0</span></div>
-            <div class="stat-item" id="level-badge" style="font-size:0.75rem; opacity:0.8;"></div>
+            <div class="stat-item"><span class="stat-icon">⭐</span> <span id="live-score">0</span></div>
         </div>
         <div class="grid" id="card-grid">
             <!-- Cards populated by JS -->
@@ -807,6 +807,10 @@
             <div class="stat-box">
                 <span class="stat-label">Moves</span>
                 <span class="stat-value" id="final-moves">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Score</span>
+                <span class="stat-value" id="final-score" style="color: var(--border-active);">0</span>
             </div>
         </div>
         
@@ -913,11 +917,13 @@
     let flippedCards = [];
     let matchedPairs = 0;
     let moves = 0;
+    let score = 0;
     let timeElapsed = 0;
     let timeLeft = 40;
     let timerInterval;
     let isLocked = false;
     let playerName = "";
+    const elLiveScore = document.getElementById('live-score');
 
     // --- DOM Elements ---
     const screens = {
@@ -974,15 +980,14 @@
                 console.warn("Could not fetch current leaderboard", e);
             }
 
-            // Add our score
-            const numericScore = Math.max(0, 1000 - (timeElapsed * 10) - (moves * 5));
-            scores.push({
-                player: playerName,
-                time: timeElapsed,
-                moves: moves,
-                score: numericScore,
-                timestamp: Date.now()
-            });
+        const numericScore = score;
+        scores.push({
+            player: playerName,
+            time: timeElapsed,
+            moves: moves,
+            score: numericScore,
+            timestamp: Date.now()
+        });
 
             // Sort by score descending and keep top 50
             scores.sort((a, b) => (b.score || 0) - (a.score || 0));
@@ -1033,6 +1038,7 @@
         flippedCards = [];
         matchedPairs = 0;
         moves = 0;
+        score = 0;
         timeElapsed = 0;
         timeLeft = 40;
         isLocked = false;
@@ -1040,6 +1046,7 @@
         elMoves.textContent = moves;
         elTimer.textContent = timeLeft;
         elPairs.textContent = matchedPairs;
+        elLiveScore.textContent = score;
         document.getElementById('total-pairs').textContent = diff.pairs;
         document.getElementById('level-badge').textContent = diff.label;
 
@@ -1130,7 +1137,9 @@
 
         if (card1.data.id === card2.data.id) {
             matchedPairs++;
+            score += 100;  // +100 per match
             elPairs.textContent = matchedPairs;
+            elLiveScore.textContent = score;
             playSound('match');
             
             // Spawn localized particles from the matched cards
@@ -1262,10 +1271,13 @@
         
         document.getElementById('final-time').textContent = timeElapsed;
         document.getElementById('final-moves').textContent = moves;
+        document.getElementById('final-score').textContent = score;
         
-        // Game over - hide submit & share, no score submitted
-        btnSubmitScore.style.display = 'none';
-        btnShare.style.display = 'none';
+        // Always show submit button so user can submit whatever score they earned
+        btnSubmitScore.disabled = false;
+        btnSubmitScore.textContent = 'Submit Score';
+        btnSubmitScore.style.display = 'inline-block';
+        btnShare.style.display = 'inline-block';
         txStatus.classList.add('hidden');
         
         showScreen('complete');
@@ -1305,6 +1317,7 @@
             document.getElementById('final-stars').textContent = starsInfo.display;
             document.getElementById('final-time').textContent = timeElapsed;
             document.getElementById('final-moves').textContent = moves;
+            document.getElementById('final-score').textContent = score;
             
             // Show submit button — user must click to submit score
             btnSubmitScore.disabled = false;
