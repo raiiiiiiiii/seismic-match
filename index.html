@@ -831,19 +831,20 @@
 <script>
     // --- Constants ---
     const ALL_BUILDERS = [
-        { id: 1, username: '@noxxW3', img: 'https://unavatar.io/twitter/noxxW3?fallback=https://api.dicebear.com/7.x/initials/svg?seed=noxxW3' },
-        { id: 2, username: '@xealistt', img: 'https://unavatar.io/twitter/xealistt?fallback=https://api.dicebear.com/7.x/initials/svg?seed=xealistt' },
-        { id: 3, username: '@heathcliff_eth', img: 'https://unavatar.io/twitter/heathcliff_eth?fallback=https://api.dicebear.com/7.x/initials/svg?seed=heathcliff' },
-        { id: 4, username: '@anya_yfa7', img: 'https://unavatar.io/twitter/anya_yfa7?fallback=https://api.dicebear.com/7.x/initials/svg?seed=anya' },
-        { id: 5, username: '@k2sbhai', img: 'https://unavatar.io/twitter/k2sbhai?fallback=https://api.dicebear.com/7.x/initials/svg?seed=k2sbhai' },
-        { id: 6, username: '@lyronctk', img: 'https://unavatar.io/twitter/lyronctk?fallback=https://api.dicebear.com/7.x/initials/svg?seed=lyronctk' },
-        { id: 7, username: '@SeismicSys', img: 'https://unavatar.io/twitter/SeismicSys?fallback=https://api.dicebear.com/7.x/initials/svg?seed=SeismicSys' },
-        { id: 8, username: '@buttercuppiro', img: 'https://unavatar.io/twitter/buttercuppiro?fallback=https://api.dicebear.com/7.x/initials/svg?seed=buttercuppiro' },
-        { id: 9, username: '@Chang_4942', img: 'https://unavatar.io/twitter/Chang_4942?fallback=https://api.dicebear.com/7.x/initials/svg?seed=Chang' },
-        { id: 10, username: '@sohyl1B', img: 'https://unavatar.io/twitter/sohyl1B?fallback=https://api.dicebear.com/7.x/initials/svg?seed=sohyl1B' },
-        { id: 11, username: '@mzain2292', img: 'https://unavatar.io/twitter/mzain2292?fallback=https://api.dicebear.com/7.x/initials/svg?seed=mzain2292' },
-        { id: 12, username: '@hamzapngs_', img: 'https://unavatar.io/twitter/hamzapngs_?fallback=https://api.dicebear.com/7.x/initials/svg?seed=hamzapngs' },
+        { id: 1,  username: '@noxxW3',        img: 'https://unavatar.io/twitter/noxxW3' },
+        { id: 2,  username: '@xealistt',      img: 'https://unavatar.io/twitter/xealistt' },
+        { id: 3,  username: '@heathcliff_eth',img: 'https://unavatar.io/twitter/heathcliff_eth' },
+        { id: 4,  username: '@anya_yfa7',     img: 'https://unavatar.io/twitter/anya_yfa7' },
+        { id: 5,  username: '@k2sbhai',       img: 'https://unavatar.io/twitter/k2sbhai' },
+        { id: 6,  username: '@lyronctk',      img: 'https://unavatar.io/twitter/lyronctk' },
+        { id: 7,  username: '@SeismicSys',    img: 'https://unavatar.io/twitter/SeismicSys' },
+        { id: 8,  username: '@buttercuppiro', img: 'https://unavatar.io/twitter/buttercuppiro' },
+        { id: 9,  username: '@Chang_4942',    img: 'https://unavatar.io/twitter/Chang_4942' },
+        { id: 10, username: '@sohyl1B',       img: 'https://unavatar.io/twitter/sohyl1B' },
+        { id: 11, username: '@mzain2292',     img: 'https://unavatar.io/twitter/mzain2292' },
+        { id: 12, username: '@hamzapngs_',    img: 'https://unavatar.io/twitter/hamzapngs_' },
     ];
+
 
     const DIFFICULTY = {
         easy:   { pairs: 6,  cols: 4, label: '🌱 Easy' },
@@ -1086,9 +1087,11 @@
                 </div>
                 <div class="card-face card-front">
                     <div class="profile-container">
-                        <img src="${card.img}" alt="${card.username}" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                        <img src="${card.img}" alt="${card.username}"
+                            onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
                         <div class="img-fallback hidden">${fallbackLetter}</div>
                     </div>
+                    <div class="username" style="font-size: clamp(0.45rem, 2.5cqi, 0.75rem); color: var(--text-secondary); font-weight: 600; text-align: center; margin-top: 6%; word-break: break-all; padding: 0 4%;">${card.username}</div>
                 </div>
             `;
             
