@@ -1249,17 +1249,15 @@
         document.getElementById('final-stars').innerHTML = "Time's Up!";
         document.getElementById('final-stars').style.fontSize = "1.5rem";
         
-        document.getElementById('final-time').textContent = "40";
+        document.getElementById('final-time').textContent = timeElapsed;
         document.getElementById('final-moves').textContent = moves;
         
+        // Game over - hide submit & share, no score submitted
         btnSubmitScore.style.display = 'none';
         btnShare.style.display = 'none';
+        txStatus.classList.add('hidden');
         
         showScreen('complete');
-        
-        // Auto-submit game over score
-        timeElapsed = 40;
-        submitScore();
     }
 
     function endGame() {
@@ -1297,13 +1295,14 @@
             document.getElementById('final-time').textContent = timeElapsed;
             document.getElementById('final-moves').textContent = moves;
             
-            btnSubmitScore.style.display = 'none';
+            // Show submit button — user must click to submit score
+            btnSubmitScore.disabled = false;
+            btnSubmitScore.textContent = 'Submit Score';
+            btnSubmitScore.style.display = 'inline-block';
+            btnShare.style.display = 'inline-block';
             txStatus.classList.add('hidden');
             
             showScreen('complete');
-            
-            // Auto-submit score to global leaderboard
-            submitScore();
         }, 1000);
     }
 
