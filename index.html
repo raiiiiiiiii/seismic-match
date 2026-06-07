@@ -1043,6 +1043,14 @@
         document.getElementById('total-pairs').textContent = diff.pairs;
         document.getElementById('level-badge').textContent = diff.label;
 
+        // Reset complete screen buttons for fresh game
+        btnSubmitScore.style.display = '';
+        btnSubmitScore.disabled = false;
+        btnSubmitScore.textContent = 'Submit Score';
+        btnShare.style.display = '';
+        txStatus.classList.add('hidden');
+        txStatus.innerHTML = '';
+
         // Set CSS variables for responsive constraints
         const rows = (diff.pairs * 2) / diff.cols;
         document.documentElement.style.setProperty('--grid-cols', diff.cols);
